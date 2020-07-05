@@ -13,6 +13,7 @@ final class Ebook
   public function __construct(EbookId $id, string $name, int $price)
   {
     Assertion::greaterThan($price, 0);
+    Assertion::string($name);
     $this->name = $name;
     $this->price = $price;
     $this->id = $id;

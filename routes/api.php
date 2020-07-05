@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/ebooks/order', 'OrderController@orderEbookAction');
-Route::post('/ebooks/add', 'EbookController@addEbookAction');
-Route::get('/ebooks/{id}', 'EbookController@getEbookAction');
 Route::get('/ebooks', 'EbookController@listEbooks');
+Route::post('/ebooks', 'EbookController@addEbookAction');
+Route::get('/ebooks/{id}', 'EbookController@getEbookAction');
+Route::post('/ebooks/{id}/order', 'OrderController@orderEbookAction');

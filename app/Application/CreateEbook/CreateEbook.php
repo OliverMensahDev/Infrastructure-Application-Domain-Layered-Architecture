@@ -2,7 +2,6 @@
 
 namespace App\Application\CreateEbook;
 
-
 final class CreateEbook
 {
   private $name;

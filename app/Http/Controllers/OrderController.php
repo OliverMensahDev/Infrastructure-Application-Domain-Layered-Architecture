@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Application\CreateOrder\CreateOrder;
 use App\Application\CreateOrder\CreateOrderService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class OrderController
 {
@@ -21,7 +20,7 @@ class OrderController
   {
     $orderId = $this->createOrderService->create(
       new CreateOrder(
-        $request->ebook_id,
+        $request->route('id'),
         $request->quantity,
         $request->email_address
       )
