@@ -1,4 +1,4 @@
-# Code Problem
+## Code Problem
 
 ```php
 $ebookPrice = DB::table('ebooks')->where('id',  $request->ebook_id)->value('price');
@@ -14,3 +14,5 @@ return  new Response($lastInsertedId);
 ```
 
 The code above would be the basis for refactoring to achieve code that is completely independent of any infrastructure using the Domain, Application and Infrastructure layered architecture
+
+## Using Domain, Application and Infrastructure layered architecture
