@@ -16,7 +16,6 @@ return  new Response($lastInsertedId);
 The code above would be the basis for refactoring to achieve code that is completely independent of any infrastructure using the Domain, Application and Infrastructure layered architecture
 
 ## Using Domain, Application and Infrastructure layered architecture
-
 This idea behind this architecture is to separate core code which forms your business logic from infrastructure code that supports the core code. The code code is usually separated into domain and applications layers. The domain layer basically extracts codes from database interaction code into entities and repositories. The Application layer at its core extract services from controllers.
 
 ### Application Directory
@@ -24,12 +23,13 @@ This idea behind this architecture is to separate core code which forms your bus
 This folder contains the codes for various use cases of the application. These are called services. It has a service for creating an ebook, creating ebook order, listing all available ebooks and showing a single ebook
 
 ### Domain Directory
-
 This contains code that represent entities interacting with the database and their repositories
 
 ### Repositories Directory
-
 Provides the implementation details of repositories of Domain entities
+
+### Infrastructure Directory
+Currently, the controllers of Laravel forms my Infrastructure layer.  Not that sure if that's the right approach
 
 ### Sample database structure used here
 
@@ -64,3 +64,7 @@ POST: http://127.0.0.1:8000/api/ebooks/{REPLACE_WITH_EBOOK_UUID}/order
 GET: http://127.0.0.1:8000/api/ebooks/{REPLACE_WITH_EBOOK_UUID}
 
 GET: http://127.0.0.1:8000/api/ebooks/
+
+
+### Current Concerns
+The domain and application layers still uses laravel namespace which I don't really think it should be that way. But still exploring how best to get things just right.
