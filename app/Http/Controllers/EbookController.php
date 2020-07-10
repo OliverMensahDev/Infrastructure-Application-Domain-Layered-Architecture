@@ -28,10 +28,14 @@ class EbookController
 
   public function addEbookAction(Request $request)
   {
+    $validatedData = $request->validate([
+      'name'     => 'string|required|min:3',
+      'price'      => 'numeric|required',
+    ]);
     $ebookId = $this->createEbookService->addEbookAction(
       new CreateEbook(
-        $request->name,
-        $request->price
+        $validatedData['name'],
+        $validatedData['price']
       )
     );
     return response()->json(["ebook_id" => $ebookId->asString()]);

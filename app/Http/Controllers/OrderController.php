@@ -18,11 +18,15 @@ class OrderController
 
   public function orderEbookAction(Request $request)
   {
+    $validatedData = $request->validate([
+      'quantity'     => 'integer|required',
+      'email'      => 'email|required',
+    ]);
     $orderId = $this->createOrderService->create(
       new CreateOrder(
         $request->route('id'),
-        $request->quantity,
-        $request->email_address
+        $validatedData['quantity'],
+        $request['email_address']
       )
     );
     return response()->json(["order_id" => $orderId->asString()]);
