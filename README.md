@@ -1,3 +1,7 @@
+# Infrastructure, Application, and Domain Layered Architecture
+
+The main goal of this architectural style is to make a clear distinction between the core code of your application and the infrastructure code that supports it. 
+
 ## Code Problem
 
 ```php
