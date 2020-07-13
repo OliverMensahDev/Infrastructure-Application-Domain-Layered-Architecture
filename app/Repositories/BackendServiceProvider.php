@@ -25,5 +25,9 @@ class BackendServiceProvider extends ServiceProvider
       'App\Application\ShowSingleEbook\GetEbookRepository',
       'App\Repositories\EbooksUsingSQL'
     );
+    $this->app->bind(
+      'App\Application\ApplicationInterface',
+      'App\Application\Application',
+    );
   }
 }

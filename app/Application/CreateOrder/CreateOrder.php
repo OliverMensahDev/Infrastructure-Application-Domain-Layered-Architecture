@@ -26,4 +26,12 @@ final class CreateOrder
   {
     return $this->emailAddress;
   }
+  public static function fromRequestData(array $data): self
+  {
+    return new self(
+      $data['id'],
+      $data['quantity'],
+      $data['email_address']
+    );
+  }
 }

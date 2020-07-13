@@ -20,4 +20,12 @@ final class CreateEbook
   {
     return $this->price;
   }
+
+  public static function fromRequestData(array $data): self
+  {
+    return new self(
+      $data['name'],
+      $data['price'],
+    );
+  }
 }

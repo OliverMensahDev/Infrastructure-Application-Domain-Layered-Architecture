@@ -2,48 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Application\Application;
 use App\Application\CreateEbook\CreateEbook;
 use App\Application\CreateEbook\CreateEbookService;
 use App\Application\ListAvailableEbooks\ListEBooksRepository;
 use App\Application\ShowSingleEbook\GetEbookRepository;
 use App\Domain\Ebook\EbookId;
+use Exception;
 use Illuminate\Http\Request;
+use Throwable;
 
 class EbookController
 {
 
-  private $createEbookService;
-  private $listEBooksRepository;
-  private $getEbookRepository;
+  private $application;
 
-  public function __construct(
-    CreateEbookService $createEbookService,
-    ListEBooksRepository $listEBooksRepository,
-    GetEbookRepository $getEbookRepository
-  ) {
-    $this->createEbookService = $createEbookService;
-    $this->listEBooksRepository = $listEBooksRepository;
-    $this->getEbookRepository = $getEbookRepository;
+  public function __construct(Application $application)
+  {
+    $this->application = $application;
   }
 
   public function addEbookAction(Request $request)
   {
-    $validatedData = $request->validate([
-      'name'     => 'string|required|min:3',
-      'price'      => 'numeric|required',
-    ]);
-    $ebookId = $this->createEbookService->addEbookAction(
-      new CreateEbook(
-        $validatedData['name'],
-        $validatedData['price']
-      )
-    );
-    return response()->json(["ebook_id" => $ebookId->asString()]);
+    try {
+      $request->validate([
+        'name'     => 'string|required|min:3',
+        'price'      => 'numeric|required',
+      ]);
+      $ebookId = $this->application->createEbookService(
+        CreateEbook::fromRequestData($request->all())
+      );
+      return response()->json(["ebook_id" => $ebookId->asString()]);
+    } catch (Throwable $th) {
+      abort(422, "Error - {$th->getMessage()}");
+    }
   }
 
   public function getEbookAction(Request $request)
   {
-    $ebook = $this->getEbookRepository->getEbook(EbookId::fromString($request->id));
+    $ebook = $this->application->getEbookRepository(EbookId::fromString($request->id));
     $data =  [
       'id' => $ebook->ebookId(),
       'title' => $ebook->title(),
@@ -55,7 +52,7 @@ class EbookController
   public function listEbooks()
   {
     $data = [];
-    foreach ($this->listEBooksRepository->listAvailableEbooks() as $ebook) {
+    foreach ($this->application->listAvailableEbooksRepository() as $ebook) {
       $data[] = [
         'ebookId' => $ebook->ebookId(),
         'title' => $ebook->title(),
