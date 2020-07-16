@@ -22,6 +22,10 @@ The code above would be the basis for refactoring to achieve code that is comple
 ## Using Domain, Application and Infrastructure layered architecture
 This idea behind this architecture is to separate core code which forms your business logic from infrastructure code that supports the core code. The code code is usually separated into domain and applications layers. The domain layer basically extracts codes from database interaction code into entities and repositories. The Application layer at its core extract services from controllers.
 
+### Project Implementation
+Implemented with Laravel hence the domain and application layers relies on laravel namespace. But you can reuse them in other frameworks like Symfony, etc. that has a namepace beginning with of `App`.
+
+
 ### Application Directory
 
 This folder contains the codes for various use cases of the application. These are called services. It has a service for creating an ebook, creating ebook order, listing all available ebooks and showing a single ebook
@@ -71,4 +75,3 @@ GET: http://127.0.0.1:8000/api/ebooks/
 
 
 ### Current Concerns
-The domain and application layers still uses laravel namespace which I don't really think it should be that way. But still exploring how best to get things just right.
