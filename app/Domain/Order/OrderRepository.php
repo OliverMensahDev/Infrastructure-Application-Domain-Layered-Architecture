@@ -8,7 +8,7 @@ interface OrderRepository
   /**
    * @throws CouldNotFindOrder
    */
-  public function getById(string $orderId): Order;
+  public function getById(OrderId $orderId): Order;
 
   public function identity(): OrderId;
 }

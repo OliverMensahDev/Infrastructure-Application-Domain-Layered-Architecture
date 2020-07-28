@@ -24,7 +24,7 @@ final class CreateOrderService
     $ebook = $this->ebookRepository->getById(EbookId::fromString($createOrder->ebookId()));
     $orderAmount = (int) $createOrder->orderQuantity() * (int) $ebook->price();
     $orderId = $this->orderRepository->identity();
-    $order = new Order(
+    $order = Order::place(
       $orderId,
       $createOrder->emailAddress(),
       $createOrder->orderQuantity(),

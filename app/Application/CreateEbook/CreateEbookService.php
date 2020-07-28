@@ -16,7 +16,7 @@ final class CreateEbookService
   public function addEbookAction(CreateEbook $createEbook): EbookId
   {
     $ebookId = $this->ebookRepository->identity();
-    $ebook = new Ebook(
+    $ebook = Ebook::create(
       $ebookId,
       $createEbook->name(),
       $createEbook->price()

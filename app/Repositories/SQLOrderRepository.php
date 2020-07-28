@@ -15,9 +15,9 @@ class SQLOrderRepository implements OrderRepository
     DB::table('orders')->insertGetId($order->mappedData());
   }
 
-  public function getById(string $orderId): Order
+  public function getById(OrderId $orderId): Order
   {
-    $order = DB::table('orders')->where('uuid',  $orderId)->first();
+    $order = DB::table('orders')->where('uuid',  $orderId->asString())->first();
     return new Order(
       $order->uuid,
       $order->email,
