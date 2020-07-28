@@ -28,8 +28,8 @@ class SQLOrderRepository implements OrderRepository
 
   public function identity(): OrderId
   {
-    return OrderId::fromUuid(
-      Uuid::uuid4()
+    return OrderId::fromString(
+      Uuid::uuid4()->toString()
     );
   }
 }

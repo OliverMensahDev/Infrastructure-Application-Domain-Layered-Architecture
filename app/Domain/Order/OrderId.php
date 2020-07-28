@@ -2,22 +2,24 @@
 
 namespace App\Domain\Order;
 
-use Ramsey\Uuid\Rfc4122\UuidInterface;
+use Assert\Assertion;
 
 final class OrderId
 {
   private $id;
-  private function __construct(UuidInterface $id)
+  private function __construct(string $id)
   {
+    Assertion::uuid($id);
     $this->id = $id;
   }
-  public static function fromUuid(UuidInterface $id): self
+
+  public static function fromString(string $orderId): self
   {
-    return new self($id);
+    return new self($orderId);
   }
 
   public function asString(): string
   {
-    return $this->id->toString();
+    return $this->id;
   }
 }

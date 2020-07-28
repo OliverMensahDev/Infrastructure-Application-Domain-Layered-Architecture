@@ -2,15 +2,23 @@
 
 namespace App\Domain\Order;
 
+use App\Domain\Common\EventRecordingCapabilities;
 use Assert\Assertion;
 
 final class Order
 {
+
+  use EventRecordingCapabilities;
+
   private $emailAddress;
   private $quantityOrdered;
   private $orderAmount;
+  /**
+   * @var OrderId
+   */
   private  $id;
-  public function __construct(
+
+  private function __construct(
     OrderId $id,
     string $emailAddress,
     int $quantityOrdered,
@@ -33,5 +41,28 @@ final class Order
       'quantity' => $this->quantityOrdered,
       'amount' => $this->orderAmount,
     ];
+  }
+
+  public static function place(
+    OrderId $id,
+    string $emailAddress,
+    int $quantityOrdered,
+    int $orderAmount
+  ): self {
+    $order = new self(
+      $id,
+      $emailAddress,
+      $quantityOrdered,
+      $orderAmount
+    );
+
+    $order->recordThat(new OrderWasPlaced($id, $quantityOrdered, $orderAmount));
+
+    return $order;
+  }
+
+  public function orderId(): OrderId
+  {
+    return $this->orderId();
   }
 }
