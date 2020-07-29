@@ -14,13 +14,13 @@ final class OrderTest extends TestCase
     $orderId = $this->someOrderId();
     $quantity = $this->someQuantity();
     $amount = $this->someAmount();
+    $emailAddress =  "olivermensah96@gmail.com";
 
-    $order = Order::place($orderId, "olivermensah96@gmail.com", $quantity, $amount);
+    $order = Order::place($orderId, $emailAddress, $quantity, $amount);
     self::assertEquals(
       [new OrderWasPlaced(
         $orderId,
-        $quantity,
-        $amount
+        $emailAddress
       )],
       $order->releaseEvents()
     );

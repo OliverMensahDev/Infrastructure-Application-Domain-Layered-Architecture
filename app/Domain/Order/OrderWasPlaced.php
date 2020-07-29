@@ -11,17 +11,14 @@ final class OrderWasPlaced
      * @var OrderId
      */
     private $orderId;
-    private $quantityOrdered;
-    private $orderAmount;
+    private $emailAddress;
 
     public function __construct(
         OrderId $orderId,
-        int $quantityOrdered,
-        int $orderAmount
+        string $emailAddress
     ) {
         $this->orderId = $orderId;
-        $this->quantityOrdered = $quantityOrdered;
-        $this->orderAmount = $orderAmount;
+        $this->emailAddress = $emailAddress;
     }
 
     public function orderId(): OrderId
@@ -29,13 +26,8 @@ final class OrderWasPlaced
         return $this->orderId;
     }
 
-    public function quantityOrdered(): int
+    public function emailAddress(): string
     {
-        return $this->quantityOrdered;
-    }
-
-    public function orderAmount(): int
-    {
-        return $this->orderAmount;
+        return $this->emailAddress;
     }
 }

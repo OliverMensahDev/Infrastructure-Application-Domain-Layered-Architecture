@@ -29,5 +29,9 @@ class BackendServiceProvider extends ServiceProvider
       'App\Application\ApplicationInterface',
       'App\Application\Application',
     );
+    $this->app->bind(
+      'App\Domain\Order\SendOrderConfirmationEmail',
+      'App\Domain\Order\SendOrderConfirmationEmailWithPHPMailer',
+    );
   }
 }

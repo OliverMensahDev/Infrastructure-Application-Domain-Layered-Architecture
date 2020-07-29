@@ -56,7 +56,7 @@ final class Order
       $orderAmount
     );
 
-    $order->recordThat(new OrderWasPlaced($id, $quantityOrdered, $orderAmount));
+    $order->recordThat(new OrderWasPlaced($id, $emailAddress));
 
     return $order;
   }

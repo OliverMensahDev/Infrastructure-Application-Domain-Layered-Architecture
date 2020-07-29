@@ -2,19 +2,25 @@
 
 namespace App\Application\CreateOrder;
 
+use App\Application\Common\EventDispatcher;
+use App\Application\Common\Events\SendOrderConfirmationEmailEventSubsriber;
 use App\Domain\Ebook\EbookId;
 use App\Domain\Ebook\EbookRepository;
 use App\Domain\Order\Order;
 use App\Domain\Order\OrderId;
 use App\Domain\Order\OrderRepository;
+use App\Domain\Order\OrderWasPlaced;
+use App\Domain\Order\SendOrderConfirmationEmailWithPHPMailer;
 
 final class CreateOrderService
 {
   private $orderRepository;
   private $ebookRepository;
 
-  public function __construct(OrderRepository $orderRepository, EbookRepository $ebookRepository)
-  {
+  public function __construct(
+    OrderRepository $orderRepository,
+    EbookRepository $ebookRepository
+  ) {
     $this->orderRepository = $orderRepository;
     $this->ebookRepository = $ebookRepository;
   }
@@ -31,6 +37,14 @@ final class CreateOrderService
       $orderAmount
     );
     $this->orderRepository->save($order);
+    // $this->sendOrderConfirmationEmail->send($orderId, $createOrder->emailAddress());
+    $listener = new SendOrderConfirmationEmailEventSubsriber(new SendOrderConfirmationEmailWithPHPMailer);
+    $dispatcher = new EventDispatcher(
+      [
+        OrderWasPlaced::class => [$listener, 'whenOrderWasCreated']
+      ]
+    );
+    $dispatcher->dispatchAll($order->releaseEvents());
     return $orderId;
   }
 }
