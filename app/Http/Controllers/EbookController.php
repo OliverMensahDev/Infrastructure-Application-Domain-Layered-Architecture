@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Application\Application;
 use App\Application\CreateEbook\CreateEbook;
-use App\Application\CreateEbook\CreateEbookService;
-use App\Application\ListAvailableEbooks\ListEBooksRepository;
-use App\Application\ShowSingleEbook\GetEbookRepository;
 use App\Domain\Ebook\EbookId;
-use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
